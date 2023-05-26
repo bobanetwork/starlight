@@ -42,7 +42,7 @@ cp bin/default_startup bin/startup
 
 perl -i -pe "s,docker-compose.zapp.yml -f docker-compose.zapp.override.yml,docker-compose.zapp.yml,g" package.json
 
-if [[ $network == 'mumbai' ]] || [[ $network == 'sepolia' ]] || [[ $network == 'goerli' ]]
+if [[ $network == 'mumbai' ]] || [[ $network == 'sepolia' ]] || [[ $network == 'goerli' ]] || [[ $network == 'boba_goerli' ]]
 then
 perl -i -pe "s,DEFAULT_ACCOUNT: '',DEFAULT_ACCOUNT: \'$account\',g" docker-compose.zapp.override.yml
 perl -i -pe "s,DEFAULT_ACCOUNT_MNEMONIC: '',DEFAULT_ACCOUNT_MNEMONIC: \'$mnemonic\',g" docker-compose.zapp.override.yml
@@ -73,6 +73,14 @@ if [[ $network == 'goerli' ]]
 then
 perl -i -pe "s,RPC_URL: '',RPC_URL: \'wss://goerli.infura.io/ws/v3/$rpc\',g" docker-compose.zapp.override.yml
 perl -i -pe "s,development_ganache,goerli,g" entrypoint.sh
+perl -i -pe "s,while,##while,g" entrypoint.sh
+perl -i -pe "s,10,500,g" bin/startup
+fi
+
+if [[ $network == 'boba_goerli' ]]
+then
+perl -i -pe "s,RPC_URL: '',RPC_URL: \'wss://wss.goerli.boba.network\',g" docker-compose.zapp.override.yml
+perl -i -pe "s,development_ganache,boba_goerli,g" entrypoint.sh
 perl -i -pe "s,while,##while,g" entrypoint.sh
 perl -i -pe "s,10,500,g" bin/startup
 fi

@@ -77,6 +77,15 @@ module.exports = {
       timeoutBlocks:200,
       skipDryRun: true
     },
+    boba_goerli: {
+      provider: () => new HDWalletProvider(mnemonic, rpcUrl),
+      network_id: 2888,
+      gas:8500000,
+      gasPrice:1000000000,
+      confirmations: 0,
+      timeoutBlocks:200,
+      skipDryRun: true
+    },
     // localhost: {
     //   host: 'localhost', // Localhost (default: none)
     //   port: 8545, // Standard Ethereum port (default: none)
